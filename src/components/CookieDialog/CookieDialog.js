@@ -55,12 +55,32 @@ const CookieDialog = (props) => {
     setStatisticsCookies(e.target.checked);
     // console.log(props.statisticsCookieName)
 
-      Cookies.set(props.statisticsCookieName, e.target.checked, {
-        expires: 365,
-        path: '/'
-      });
+    //toogleCookies(e.target.checked, props.statisticsCookieName, props.statisticsCookieExpiry)
+    // console.log(props.statisticsCookieOptions.title);
+    // console.log(props.statisticsCookieOptions.message);
+    // console.log(props.statisticsCookieOptions.cookieExpiry);
 
-      // create or remove cookie based on toggle if statement
+    // Cookies.set(props.statisticsCookieName, e.target.checked, {
+    //   expires: 365,
+    //   path: '/'
+    // });
+
+    // create or remove cookie based on toggle if statement
+
+  }
+
+  const saveCookiePreference = (e) => {
+    console.log('save or remove cookies');
+
+    if (statisticsCookies) {
+      // set cookie
+      Cookies.set(props.statisticsCookieName, statisticsCookies)
+    } else {
+      // remove cookie
+      Cookies.remove(props.statisticsCookieName, statisticsCookies)
+    }
+
+    setDialogState(false);
 
   }
 
@@ -109,33 +129,40 @@ const CookieDialog = (props) => {
   return (
 
     <>
-    <div className={`cookie-preference-modal ${isDialogOpen ? 'is-visible' : ''} ${props.cssClass}`}>
-      <div className="container">
-        <h1>{props.title}</h1>
-        <p>{props.message}</p>
-        <form id="cookie-form" onSubmit={savePreferences}>
+      <div className={`cookie-preference-modal ${isDialogOpen ? 'is-visible' : ''} ${props.cssClass}`}>
+        <div className="container">
+          <h1>{props.title}</h1>
+          <p>{props.message}</p>
+          <form id="cookie-form" onSubmit={savePreferences}>
+
+            <div>
+              <input type="checkbox" name="preferenceCookies" checked={preferenceCookies} onChange={togglePreferenceCookies} /><label>Preference Cookies</label>
+            </div>
+
+            <div>
+              <input type="checkbox" name="marketingCookies" checked={marketingCookies} onChange={toggleMarketingCookies} /><label>Marketing Cookies</label>
+            </div>
+
+            <input type="submit" className="button" value="Save Preferences" />
+
+          </form>
 
           <div>
-            <input type="checkbox" name="preferenceCookies" checked={preferenceCookies} onChange={togglePreferenceCookies} /><label>Preference Cookies</label>
+
+            <h3>{props.statisticsCookieTitle}</h3>
+            <label className="checkbox-container">
+              <input type="checkbox" name="statistics" checked={statisticsCookies} onChange={toggleStatisticsCookies} id="statistics" />
+              <span className="checkmark"></span>
+              <p>{props.statisticsCookieMessage}</p>
+            </label>
+
           </div>
 
-          <div>
-            <input type="checkbox" name="marketingCookies" checked={marketingCookies} onChange={toggleMarketingCookies} /><label>Marketing Cookies</label>
-          </div>
+          <button onClick={saveCookiePreference}>Save Cookie Preferences</button>
 
-          <input type="submit" className="button" value="Save Preferences" />
-
-        </form>
-
-        <div>
-          <h3>{props.statisticsCookiesTitle}</h3>
-          <p>{props.statisticsCookieMessage}</p>
-          <input type="checkbox" name="statistics" checked={statisticsCookies} onChange={toggleStatisticsCookies} id="statistics" />
         </div>
-
       </div>
-    </div>
-    <div className={`body-overlay ${isDialogOpen ? 'is-visible' : ''}`}></div>
+      <div className={`body-overlay ${isDialogOpen ? 'is-visible' : ''}`}></div>
     </>
   );
 }
@@ -144,9 +171,10 @@ CookieDialog.defaultProps = {
   title: 'Your privacy options',
   message: 'Please review and manage your privacy settings below',
   cssClass: 'css',
-  statisticsCookiesTitle: 'Statistics cookies',
+  statisticsCookieTitle: 'Statistics cookies',
   statisticsCookieMessage: 'These cookies allow the website to remember your choices for marketing features',
   statisticsCookieName: 'statistics_cookie_consent',
+  statisticsCookieExpiry: 365,
 }
 
 export default CookieDialog;
