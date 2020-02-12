@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { DialogContext } from '../contexts/DialogContext';
+import { DialogContext } from '../../contexts/DialogContext';
 
 import Cookies from 'js-cookie';
+import './cookie-dialog.scss';
 
 const CookieDialog = (props) => {
 
@@ -9,6 +10,7 @@ const CookieDialog = (props) => {
 
   const [preferenceCookies, setPreferenceCookies] = useState(true);
   const [marketingCookies, setMarketingCookies] = useState(true);
+  const [statisticsCookies, setStatisticsCookies] = useState(false);
 
   useEffect(() => {
 
@@ -19,6 +21,9 @@ const CookieDialog = (props) => {
 
     Cookies.get('preference-cookie') === '1' ? setPreferenceCookies(true) : setPreferenceCookies(false)
     Cookies.get('marketing-cookie') === '1' ? setMarketingCookies(true) : setMarketingCookies(false)
+
+    // Statistics cookie
+    Cookies.get('statistics_cookie_consent') ? setStatisticsCookies(true) : setStatisticsCookies(false)
 
   }, [])
 
@@ -42,6 +47,20 @@ const CookieDialog = (props) => {
 
     setMarketingCookies(e.target.checked);
     toggleCookiePreferences(e.target.checked, 'marketing-cookie')
+
+  }
+
+  const toggleStatisticsCookies = (e) => {
+
+    setStatisticsCookies(e.target.checked);
+    // console.log(props.statisticsCookieName)
+
+      Cookies.set(props.statisticsCookieName, e.target.checked, {
+        expires: 365,
+        path: '/'
+      });
+
+      // create or remove cookie based on toggle if statement
 
   }
 
@@ -89,9 +108,11 @@ const CookieDialog = (props) => {
 
   return (
 
-    <div className={`cookie-preference-modal ${isDialogOpen ? 'is-visible' : ''}`}>
+    <>
+    <div className={`cookie-preference-modal ${isDialogOpen ? 'is-visible' : ''} ${props.cssClass}`}>
       <div className="container">
-        <h1>Cookie Preference</h1>
+        <h1>{props.title}</h1>
+        <p>{props.message}</p>
         <form id="cookie-form" onSubmit={savePreferences}>
 
           <div>
@@ -105,9 +126,27 @@ const CookieDialog = (props) => {
           <input type="submit" className="button" value="Save Preferences" />
 
         </form>
+
+        <div>
+          <h3>{props.statisticsCookiesTitle}</h3>
+          <p>{props.statisticsCookieMessage}</p>
+          <input type="checkbox" name="statistics" checked={statisticsCookies} onChange={toggleStatisticsCookies} id="statistics" />
+        </div>
+
       </div>
     </div>
+    <div className={`body-overlay ${isDialogOpen ? 'is-visible' : ''}`}></div>
+    </>
   );
+}
+
+CookieDialog.defaultProps = {
+  title: 'Your privacy options',
+  message: 'Please review and manage your privacy settings below',
+  cssClass: 'css',
+  statisticsCookiesTitle: 'Statistics cookies',
+  statisticsCookieMessage: 'These cookies allow the website to remember your choices for marketing features',
+  statisticsCookieName: 'statistics_cookie_consent',
 }
 
 export default CookieDialog;

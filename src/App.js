@@ -1,6 +1,8 @@
 import React from 'react';
-import CookieBanner from './components/CookieBanner';
+import CookieBanner from './components/CookieBanner/CookieBanner';
 import DialogContextProvider from './contexts/DialogContext';
+import CookieDialog from './components/CookieDialog/CookieDialog';
+import CookieOption from './components/CookieOption/CookieOption';
 
 
 function App() {
@@ -16,6 +18,7 @@ function App() {
       <DialogContextProvider>
         <footer>
           <CookieBanner />
+          <CookieDialog />
         </footer>
       </DialogContextProvider>
     </div>
