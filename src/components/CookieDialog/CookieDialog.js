@@ -197,11 +197,7 @@ const CookieDialog = (props) => {
 CookieDialog.defaultProps = {
   title: 'Your privacy options',
   message: 'Please review and manage your privacy settings below',
-  cssClass: 'css',
-  // statisticsCookieTitle: 'Statistics cookies',
-  // statisticsCookieMessage: 'These cookies allow the website to remember your choices for marketing features',
-  // statisticsCookieName: 'statistics_cookie_consent',
-  // statisticsCookieExpiry: 365,
+  cssClass: 'css'
 }
 
 
