@@ -5,32 +5,42 @@ import './cookie-banner.scss';
 
 const CookieBanner = (props) => {
 
-  const { setDialogState } = useContext(DialogContext);
+  const { setDialogState, isBannerOpen, setBannerState } = useContext(DialogContext);
 
   useEffect(() => {
 
-    let cookieBar = document.getElementById('cookie-bar');
-    let cookieClose = document.querySelector('.js--cookie-close');
+    // let cookieBar = document.getElementById('cookie-bar');
+    // let cookieClose = document.querySelector('.js--cookie-close');
 
-    if (!Cookies.get('cookieBar-nhm-cookie')) {
-      cookieBar.classList.add('is-active');
-    }
-    else {
-      cookieBar.classList.remove('is-active');
-    }
+    Cookies.get('necessary-cookies') ? setBannerState(false) : setBannerState(true)
 
-    cookieClose.addEventListener('click', () => {
+    console.log(isBannerOpen);
+    console.log(Cookies.get('necessary-cookies'));
 
-      Cookies.set('cookieBar-nhm-cookie', 'nhm-cookie', {
-        expires: 365,
-        path: '/'
-      });
+    // if (!Cookies.get('cookieBar-nhm-cookie')) {
+    //   cookieBar.classList.add('is-active');
+    // }
+    // else {
+    //   cookieBar.classList.remove('is-active');
+    // }
 
-      cookieBar.classList.remove('show');
+    // cookieClose.addEventListener('click', () => {
 
-    });
+    //   Cookies.set('cookieBar-nhm-cookie', 'nhm-cookie', {
+    //     expires: 365,
+    //     path: '/'
+    //   });
+
+    //   cookieBar.classList.remove('show');
+
+    // });
 
   });
+
+  const acceptCookies = () => {
+    Cookies.set('necessary-cookies', true);
+    setBannerState(false);
+  }
 
   const manageConsent = () => {
     setDialogState(true);
@@ -38,7 +48,7 @@ const CookieBanner = (props) => {
 
   return (
     <>
-      <div id="cookie-bar" className={`cookie-consent-banner ${props.cssClass}`}>
+      <div id="cookie-bar" className={`cookie-consent-banner ${isBannerOpen ? 'is-active' : ''} ${props.cssClass}`}>
         <div className="policy-info">
           <h2 className="title">{props.title}</h2>
           <p className="description">
@@ -46,7 +56,7 @@ const CookieBanner = (props) => {
           </p>
         </div>
         <div className="cta-actions">
-          <button className="js--cookie-close">{props.acceptButtonText}</button>
+          <button onClick={acceptCookies}>{props.acceptButtonText}</button>
           <button onClick={manageConsent}>{props.manageConsentText}</button>
         </div>
       </div>
