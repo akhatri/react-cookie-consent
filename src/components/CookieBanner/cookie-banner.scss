@@ -1,21 +1,33 @@
 
 .cookie-consent-banner {
+	display: flex;
+	flex-direction: column;
 	background-color: #000;
 	min-height: 80px;
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	z-index: 9999999;
-	padding: 20px;
+	padding: 30px;
 	opacity: 0;
-	visibility: hidden;
-	transition: all .5s ease-in-out;
+	transform: translate3d(0,100%,0);
+	transition: all .8s ease-in-out;
+	z-index: 5;
 
-	h1 {
+	.policy-info {
+		margin-bottom: 20px;
+	}
+
+	.title {
 		color: #fff;
-  }
+		margin-bottom: 20px;
+	}
+
+	.description {
+		color: #fff;
+	}
 
   button {
+		display: inline-block;
     outline: none;
     background-color: transparent;
 		border: 0;
@@ -37,24 +49,15 @@
 
 	a {
 		color: #fff;
-		font-family: Arial;
-		font-size: 1.1em;
 		text-decoration: none;
-		border-bottom: 1px dotted #fff;
+		border-bottom: 1px solid #fff;
   }
 
   a:hover {
     border-bottom-style: solid;
   }
-
-	p {
-		color: #fff;
-		font-family: Arial;
-		font-size: 1.1em;
-		text-decoration: none;
-	}
-	&.show {
+	&.is-active {
 		opacity: 1;
-		visibility: visible;
+		transform: translate3d(0,0,0);
 	}
 }

@@ -10,11 +10,25 @@ const CookieDialog = (props) => {
 
   const [preferenceCookies, setPreferenceCookies] = useState(true);
   const [marketingCookies, setMarketingCookies] = useState(true);
-  const [statisticsCookies, setStatisticsCookies] = useState(false);
+  const [statisticsCookies, setStatisticsCookies] = useState(true);
+
+  // Statistics Cookies
+  //-------------------
+
+  // Default options
+  const defaultStatisticsCookieOptions = {
+    title: 'Statistics cookies',
+    message: 'These cookies allow the website to remember your choices for marketing features',
+    cookieName: 'statistics_cookie_consent',
+    cookieExpiry: 7
+  }
+
+  // workaround to allow default props in objects
+  let { statisticsCookieOptions = defaultStatisticsCookieOptions } = props;
+  statisticsCookieOptions = { ...defaultStatisticsCookieOptions, ...statisticsCookieOptions };
+
 
   useEffect(() => {
-
-    console.log('fired on component load');
 
     setInitialCookies('preference-cookie');
     setInitialCookies('marketing-cookie');
@@ -129,7 +143,7 @@ const CookieDialog = (props) => {
   return (
 
     <>
-      <div className={`cookie-preference-modal ${isDialogOpen ? 'is-visible' : ''} ${props.cssClass}`}>
+      <div className={`cookie-preference-dialog ${isDialogOpen ? 'is-visible' : ''} ${props.cssClass}`}>
         <div className="container">
           <h1>{props.title}</h1>
           <p>{props.message}</p>
@@ -147,14 +161,26 @@ const CookieDialog = (props) => {
 
           </form>
 
-          <div>
+          <br />
+          <br />
+          <br />
+          <br />
 
-            <h3>{props.statisticsCookieTitle}</h3>
-            <label className="checkbox-container">
-              <input type="checkbox" name="statistics" checked={statisticsCookies} onChange={toggleStatisticsCookies} id="statistics" />
-              <span className="checkmark"></span>
-              <p>{props.statisticsCookieMessage}</p>
-            </label>
+          <div className="cookie-options-wrapper">
+
+            <h3 className="title">{statisticsCookieOptions.title}</h3>
+
+            <div className="cookie-option">
+              <div className="checkbox-control">
+                <label className="checkbox-container">
+                  <input type="checkbox" name="statistics" checked={statisticsCookies} onChange={toggleStatisticsCookies} id="statistics" />
+                  <span className="checkmark"></span>
+                </label>
+              </div>
+              <div className="description">
+                <p>{statisticsCookieOptions.message}</p>
+              </div>
+            </div>
 
           </div>
 
@@ -163,6 +189,7 @@ const CookieDialog = (props) => {
         </div>
       </div>
       <div className={`body-overlay ${isDialogOpen ? 'is-visible' : ''}`}></div>
+
     </>
   );
 }
@@ -171,10 +198,12 @@ CookieDialog.defaultProps = {
   title: 'Your privacy options',
   message: 'Please review and manage your privacy settings below',
   cssClass: 'css',
-  statisticsCookieTitle: 'Statistics cookies',
-  statisticsCookieMessage: 'These cookies allow the website to remember your choices for marketing features',
-  statisticsCookieName: 'statistics_cookie_consent',
-  statisticsCookieExpiry: 365,
+  // statisticsCookieTitle: 'Statistics cookies',
+  // statisticsCookieMessage: 'These cookies allow the website to remember your choices for marketing features',
+  // statisticsCookieName: 'statistics_cookie_consent',
+  // statisticsCookieExpiry: 365,
 }
+
+
 
 export default CookieDialog;

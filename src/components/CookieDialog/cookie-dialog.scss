@@ -1,21 +1,17 @@
-
-// Cookie Modal
-.cookie-preference-modal {
+.cookie-preference-dialog {
 	position: fixed;
-	background-color: whitesmoke;
-	border: 2px solid black;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	min-height: 500px;
+	top: 0;
+	right: 0;
+	height: 100%;
+	background-color: #fff;
 	padding: 30px;
-	width: 80%;
-	z-index: -1;
-	opacity: 0;
-	transition: all 0.3s ease-in-out;
+	width: 40%;
+	transform: translate3d(100%, 0, 0);
+	transition: all 0.5s ease-in-out;
+
 	&.is-visible {
-		opacity: 1;
-		z-index: 999998; //99999 global header
+		transform: translate3d(0, 0, 0);
+		z-index: 7;
 	}
 }
 
@@ -29,29 +25,55 @@ button {
 	color: #000;
 	transition: all .5s ease-in-out;
 	cursor: pointer;
+
 	&:hover {
 		color: #fff;
 		background-color: #000;
 	}
 }
 
+.cookie-options-wrapper {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	.title {
+		margin-bottom: 20px;
+	}
+}
+
+.cookie-option {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.checkbox-control {
+	flex-basis: 20%;
+}
+
+.description {
+	p {
+		color: #000;
+	}
+}
+
 .checkbox-container {
 	display: block;
 	position: relative;
-	min-height: 30px;
-  padding-left: 35px;
-  margin-bottom: 12px;
-	font-size: 22px;	
+	/* min-height: 30px; */
+	/* padding-left: 35px; */
+	/* margin-bottom: 12px; */
+	/* font-size: 22px; */
+	-webkit-user-select: none;
 	user-select: none;
 	cursor: pointer;
 	//transition: all .5s ease-in-out;
-	
+
 	input {
-		position: absolute;
-		opacity: 0;
-		cursor: pointer;
-		height: 0;
-		width: 0;		
+    /* position: absolute; */
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
 	}
 
 	p {
@@ -64,45 +86,46 @@ button {
 		left: 0;
 		height: 25px;
 		width: 25px;
-		background-color: #eee;
+		background-color: transparent;
+		border: 2px solid #000;
 		transition: all .3s ease-in-out;
-	}	
+	}
 
 }
 
 /* On mouse-over, add a grey background color */
-.checkbox-container:hover input ~ .checkmark {
-  background-color: #ccc;
+.checkbox-container:hover input~.checkmark {
+	background-color: transparent;
 }
 
 /* When the checkbox is checked, add a blue background */
-.checkbox-container input:checked ~ .checkmark {
-  background-color: #2196F3;
+.checkbox-container input:checked~.checkmark {
+	background-color: #000;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
 .checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
+	content: "";
+	position: absolute;
+	display: none;
 }
 
 /* Show the checkmark when checked */
-.checkbox-container input:checked ~ .checkmark:after {
-  display: block;
+.checkbox-container input:checked~.checkmark:after {
+	display: block;
 }
 
 /* Style the checkmark/indicator */
 .checkbox-container .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
+	left: 7px;
+	top: 3px;
+	width: 5px;
+	height: 10px;
+	border: solid white;
+	border-width: 0 3px 3px 0;
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
 }
 
 
@@ -113,12 +136,13 @@ button {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: rgba(0,0,0,0.4);
+	background-color: rgba(0, 0, 0, 0.4);
 	opacity: 0;
 	transition: all 0.3s ease-in-out 0.3s;
 	z-index: -1;
+
 	&.is-visible {
-		z-index: 999997;
 		opacity: 1;
+		z-index: 6;
 	}
 }

@@ -1,40 +1,24 @@
-import React, { useContext, useEffect, useCallback } from 'react';
-
+import React, { useContext, useEffect } from 'react';
 import { DialogContext } from '../../contexts/DialogContext';
-
 import Cookies from 'js-cookie'
-
 import './cookie-banner.scss';
 
 const CookieBanner = (props) => {
 
-  const { isDialogOpen, setDialogState } = useContext(DialogContext);
-
-  // const onAcceptPreferences = useCallback((e) => {
-  //   e.preventDefault();
-  //   console.log('callback fired')
-  // }, [])
+  const { setDialogState } = useContext(DialogContext);
 
   useEffect(() => {
-    console.log('hello cookie banner');
 
     let cookieBar = document.getElementById('cookie-bar');
     let cookieClose = document.querySelector('.js--cookie-close');
 
-    /*
-    * Show Cookie bar
-    */
-    if (!Cookies.get('cookieBar-nhm-cookie')) { //Fire when no cookie feedback present
-      cookieBar.classList.add('show');
+    if (!Cookies.get('cookieBar-nhm-cookie')) {
+      cookieBar.classList.add('is-active');
     }
     else {
-      cookieBar.classList.remove('show');
+      cookieBar.classList.remove('is-active');
     }
 
-
-    /*
-    * Close Cookie bar
-    */
     cookieClose.addEventListener('click', () => {
 
       Cookies.set('cookieBar-nhm-cookie', 'nhm-cookie', {
@@ -49,25 +33,24 @@ const CookieBanner = (props) => {
   });
 
   const manageConsent = () => {
-    console.log('clicked button');
     setDialogState(true);
   }
 
   return (
     <>
-      <div id="cookie-bar" data-module="cookie-bar" className={`cookie-consent-banner ${props.cssClass}`}>
-        <h1>{props.title}</h1>
-          <p className="policy-content">
+      <div id="cookie-bar" className={`cookie-consent-banner ${props.cssClass}`}>
+        <div className="policy-info">
+          <h2 className="title">{props.title}</h2>
+          <p className="description">
             {props.message} {props.policyText} <a href={props.policyLink}>{props.policyLinkText}</a>
           </p>
-        <div>
+        </div>
+        <div className="cta-actions">
           <button className="js--cookie-close">{props.acceptButtonText}</button>
           <button onClick={manageConsent}>{props.manageConsentText}</button>
         </div>
-        <div>{props.onAcceptPreferences}</div>
       </div>
     </>
-
   );
 }
 
