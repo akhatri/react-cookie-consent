@@ -37,7 +37,7 @@ const CookieDialog = (props) => {
     Cookies.get('marketing-cookie') === '1' ? setMarketingCookies(true) : setMarketingCookies(false)
 
     // Statistics cookie
-    Cookies.get('statistics_cookie_consent') ? setStatisticsCookies(true) : setStatisticsCookies(false)
+    Cookies.get(statisticsCookieOptions.cookieName) ? setStatisticsCookies(true) : setStatisticsCookies(false)
 
   }, [])
 
@@ -88,10 +88,10 @@ const CookieDialog = (props) => {
 
     if (statisticsCookies) {
       // set cookie
-      Cookies.set(props.statisticsCookieName, statisticsCookies)
+      Cookies.set(statisticsCookieOptions.cookieName, statisticsCookies)
     } else {
       // remove cookie
-      Cookies.remove(props.statisticsCookieName, statisticsCookies)
+      Cookies.remove(statisticsCookieOptions.cookieName, statisticsCookies)
     }
 
     setDialogState(false);
