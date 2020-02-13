@@ -184,7 +184,7 @@ const CookieDialog = (props) => {
 
           </div>
 
-          <button onClick={saveCookiePreference}>Save Cookie Preferences</button>
+          <button className="save-preferences" onClick={saveCookiePreference}>Save Cookie Preferences</button>
 
         </div>
       </div>
