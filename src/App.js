@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import CookieBanner from './components/CookieBanner/CookieBanner';
 import DialogContextProvider from './contexts/DialogContext';
 import CookieDialog from './components/CookieDialog/CookieDialog';
-import CookieOption from './components/CookieOption/CookieOption';
+//import CookieOption, {FunctionalCookieOption, MarketingCookieOption} from './components/CookieOption/CookieOption';
+import { PreferenceCheckbox, MarketingCheckbox, StatisticsCheckbox } from './components/CookieOptions/CookieOptions';
 import CookieContextProvider from './contexts/CookieContext';
 
 
@@ -33,7 +34,9 @@ function App() {
         <CookieBanner />
         <CookieContextProvider>
           <CookieDialog>
-            <CookieOption title="Base Cookie" cookie="base_cookie" message="Base cookies message" onAccept={toggleStatisticsCookies} />
+            <PreferenceCheckbox />
+            <MarketingCheckbox />
+            <StatisticsCheckbox />
           </CookieDialog>
         </CookieContextProvider>
       </DialogContextProvider>

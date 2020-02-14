@@ -8,13 +8,14 @@ import './cookie-dialog.scss';
 const CookieDialog = (props) => {
 
   const { isDialogOpen, setDialogState } = useContext(DialogContext);
-  const { baseCookie, setBaseCookie } = useContext(CookieContext);
+  //const { baseCookie, setBaseCookie } = useContext(CookieContext);
+  const { preferenceCookie, setPreferenceCookie } = useContext(CookieContext);
 
   const [preferenceCookies, setPreferenceCookies] = useState(true);
   const [marketingCookies, setMarketingCookies] = useState(true);
   const [statisticsCookies, setStatisticsCookies] = useState(true);
 
-  console.log(props.children.props.cookie);
+  //console.log(props.children.props.cookie);
 
   // Statistics Cookies
   //-------------------
@@ -43,7 +44,11 @@ const CookieDialog = (props) => {
     // Statistics cookie
     Cookies.get(statisticsCookieOptions.cookieName) ? setStatisticsCookies(true) : setStatisticsCookies(false)
 
-    Cookies.get('base_cookie') ? setBaseCookie(true) : setBaseCookie(false)
+    //Cookies.get('base_cookie') ? setBaseCookie(true) : setBaseCookie(false)
+
+    //console.log(preferenceCookie.name);
+
+    //Cookies.get(preferenceCookie.name) ? setPreferenceCookie({enabled: true}) : setPreferenceCookie({enabled: false});
 
   }, [])
 
@@ -89,6 +94,10 @@ const CookieDialog = (props) => {
 
   }
 
+  // const toggleCookie = (e) => {
+  //   console.log('fired toggle from inside component');
+  // }
+
   const saveCookiePreference = (e) => {
     //console.logconsole.log('save or remove cookies');
 
@@ -100,11 +109,18 @@ const CookieDialog = (props) => {
       Cookies.remove(statisticsCookieOptions.cookieName, statisticsCookies)
     }
 
-    if (baseCookie) {
-      // set cookie
-      Cookies.set('base_cookie', baseCookie)      
+    // if (baseCookie) {
+    //   // set cookie
+    //   Cookies.set('base_cookie', baseCookie)      
+    // } else {
+    //   Cookies.remove('base_cookie');
+    // }
+
+    if (preferenceCookie.enabled) {
+      // Set Cookie
+      Cookies.set(preferenceCookie.name, preferenceCookie.enabled);
     } else {
-      Cookies.remove('base_cookie');
+      Cookies.remove(preferenceCookie.name);
     }
 
     setDialogState(false);
