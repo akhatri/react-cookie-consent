@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CookieBanner from './components/CookieBanner/CookieBanner';
 import DialogContextProvider from './contexts/DialogContext';
 import CookieDialog from './components/CookieDialog/CookieDialog';
 import CookieOption from './components/CookieOption/CookieOption';
+import CookieContextProvider from './contexts/CookieContext';
+
+
 
 
 function App() {
+
+  const toggleStatisticsCookies = (e) => {
+
+    //setStatisticsCookies(e.target.checked);
+    console.log('callback if necessary');
+
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +31,11 @@ function App() {
       </footer>
       <DialogContextProvider>
         <CookieBanner />
-        <CookieDialog />
+        <CookieContextProvider>
+          <CookieDialog>
+            <CookieOption title="Base Cookie" cookie="base_cookie" message="Base cookies message" onAccept={toggleStatisticsCookies} />
+          </CookieDialog>
+        </CookieContextProvider>
       </DialogContextProvider>
     </div>
   );

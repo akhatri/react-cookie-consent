@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { DialogContext } from '../../contexts/DialogContext';
+import { CookieContext } from '../../contexts/CookieContext';
 
 import Cookies from 'js-cookie';
 import './cookie-dialog.scss';
@@ -7,10 +8,13 @@ import './cookie-dialog.scss';
 const CookieDialog = (props) => {
 
   const { isDialogOpen, setDialogState } = useContext(DialogContext);
+  const { baseCookie, setBaseCookie } = useContext(CookieContext);
 
   const [preferenceCookies, setPreferenceCookies] = useState(true);
   const [marketingCookies, setMarketingCookies] = useState(true);
   const [statisticsCookies, setStatisticsCookies] = useState(true);
+
+  console.log(props.children.props.cookie);
 
   // Statistics Cookies
   //-------------------
@@ -38,6 +42,8 @@ const CookieDialog = (props) => {
 
     // Statistics cookie
     Cookies.get(statisticsCookieOptions.cookieName) ? setStatisticsCookies(true) : setStatisticsCookies(false)
+
+    Cookies.get('base_cookie') ? setBaseCookie(true) : setBaseCookie(false)
 
   }, [])
 
@@ -84,7 +90,7 @@ const CookieDialog = (props) => {
   }
 
   const saveCookiePreference = (e) => {
-    console.log('save or remove cookies');
+    //console.logconsole.log('save or remove cookies');
 
     if (statisticsCookies) {
       // set cookie
@@ -92,6 +98,13 @@ const CookieDialog = (props) => {
     } else {
       // remove cookie
       Cookies.remove(statisticsCookieOptions.cookieName, statisticsCookies)
+    }
+
+    if (baseCookie) {
+      // set cookie
+      Cookies.set('base_cookie', baseCookie)      
+    } else {
+      Cookies.remove('base_cookie');
     }
 
     setDialogState(false);
@@ -102,7 +115,7 @@ const CookieDialog = (props) => {
   //----------
 
   function toggleCookiePreferences(toggleOption, cookieName) {
-    console.log('toggle value', toggleOption);
+    //consoleconsole.log('toggle value', toggleOption);
 
     if (toggleOption === false) {
 
@@ -127,7 +140,7 @@ const CookieDialog = (props) => {
   function setInitialCookies(cookieName) {
 
     if (!Cookies.get(cookieName)) {
-      console.log('no cookie set. initialise and set to 1');
+      //console.log('no cookie set. initialise and set to 1');
 
       // set cookie with value of 1
       Cookies.set(cookieName, '1', {
@@ -136,7 +149,7 @@ const CookieDialog = (props) => {
       });
 
     } else {
-      console.log('cookie set dont initialise them');
+      //console.log('cookie set dont initialise them');
     }
   }
 
@@ -165,6 +178,8 @@ const CookieDialog = (props) => {
           <br />
           <br />
           <br />
+
+          {props.children}
 
           <div className="cookie-options-wrapper">
 

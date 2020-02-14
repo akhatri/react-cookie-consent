@@ -14,8 +14,8 @@ const CookieBanner = (props) => {
 
     Cookies.get('necessary-cookies') ? setBannerState(false) : setBannerState(true)
 
-    console.log(isBannerOpen);
-    console.log(Cookies.get('necessary-cookies'));
+    // console.log(isBannerOpen);
+    // console.log(Cookies.get('necessary-cookies'));
 
     // if (!Cookies.get('cookieBar-nhm-cookie')) {
     //   cookieBar.classList.add('is-active');
