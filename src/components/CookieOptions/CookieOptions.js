@@ -134,6 +134,7 @@ export const PreferenceCheckbox = (props) => {
     console.log(preferenceCookie.enabled);
     console.log(preferenceCookie.name);
     console.log(preferenceCookie.expiry);
+    console.log(props.cookieName);
   })
 
 
@@ -143,6 +144,7 @@ export const PreferenceCheckbox = (props) => {
       ...preferenceCookie,
       //name: 'pref_cookie_consent', // override cookie name - can be picked up from passed prop
       //name: preferenceCookie.name,
+      name: props.cookieName,
       enabled: e.target.checked,
       //expiry: preferenceCookie.expiry
     }); 
@@ -190,5 +192,7 @@ export const StatisticsCheckbox = () => {
 
 PreferenceCheckbox.defaultProps = {
   title: 'Preference Cookie',
-  message: 'This cookie option manages and tracks some marketing data'
+  message: 'This cookie option manages and tracks some marketing data',
+  cookieName: 'pref_cookie_consent',
+  cookieExpiry: 7
 }
