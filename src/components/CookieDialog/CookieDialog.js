@@ -8,47 +8,17 @@ import './cookie-dialog.scss';
 const CookieDialog = (props) => {
 
   const { isDialogOpen, setDialogState } = useContext(DialogContext);
-  //const { baseCookie, setBaseCookie } = useContext(CookieContext);
   const { preferenceCookie, setPreferenceCookie } = useContext(CookieContext);
-
-  const [preferenceCookies, setPreferenceCookies] = useState(true);
-  const [marketingCookies, setMarketingCookies] = useState(true);
-  const [statisticsCookies, setStatisticsCookies] = useState(true);
-
-  //console.log(props.children.props.cookie);
-
-  // Statistics Cookies
-  //-------------------
-
-  // Default options
-  const defaultStatisticsCookieOptions = {
-    title: 'Statistics cookies',
-    message: 'These cookies allow the website to remember your choices for marketing features',
-    cookieName: 'statistics_cookie_consent',
-    cookieExpiry: 7
-  }
-
-  // workaround to allow default props in objects
-  let { statisticsCookieOptions = defaultStatisticsCookieOptions } = props;
-  statisticsCookieOptions = { ...defaultStatisticsCookieOptions, ...statisticsCookieOptions };
-
+  const { marketingCookie, setMarketingCookie } = useContext(CookieContext);
+  const { statisticsCookie, setStatisticsCookie } = useContext(CookieContext);
 
   useEffect(() => {
 
-    setInitialCookies('preference-cookie');
-    setInitialCookies('marketing-cookie');
+    Cookies.get(preferenceCookie.name) ? setPreferenceCookie({...preferenceCookie, enabled: true}) : setPreferenceCookie({...preferenceCookie, enabled: false});
 
-    Cookies.get('preference-cookie') === '1' ? setPreferenceCookies(true) : setPreferenceCookies(false)
-    Cookies.get('marketing-cookie') === '1' ? setMarketingCookies(true) : setMarketingCookies(false)
+    Cookies.get(marketingCookie.name) ? setMarketingCookie({...marketingCookie, enabled: true}) : setMarketingCookie({...marketingCookie, enabled: false});
 
-    // Statistics cookie
-    Cookies.get(statisticsCookieOptions.cookieName) ? setStatisticsCookies(true) : setStatisticsCookies(false)
-
-    //Cookies.get('base_cookie') ? setBaseCookie(true) : setBaseCookie(false)
-
-    //console.log(preferenceCookie.name);
-
-    //Cookies.get(preferenceCookie.name) ? setPreferenceCookie({enabled: true}) : setPreferenceCookie({enabled: false});
+    Cookies.get(statisticsCookie.name) ? setStatisticsCookie({...statisticsCookie, enabled: true}) : setStatisticsCookie({...statisticsCookie, enabled: false});
 
   }, [])
 
@@ -56,71 +26,25 @@ const CookieDialog = (props) => {
 
   // Events
   //--------
-  const savePreferences = (e) => {
-    e.preventDefault();
-    setDialogState(false);
-  }
-
-  const togglePreferenceCookies = (e) => {
-
-    setPreferenceCookies(e.target.checked);
-    toggleCookiePreferences(e.target.checked, 'preference-cookie')
-
-  }
-
-  const toggleMarketingCookies = (e) => {
-
-    setMarketingCookies(e.target.checked);
-    toggleCookiePreferences(e.target.checked, 'marketing-cookie')
-
-  }
-
-  const toggleStatisticsCookies = (e) => {
-
-    setStatisticsCookies(e.target.checked);
-    // console.log(props.statisticsCookieName)
-
-    //toogleCookies(e.target.checked, props.statisticsCookieName, props.statisticsCookieExpiry)
-    // console.log(props.statisticsCookieOptions.title);
-    // console.log(props.statisticsCookieOptions.message);
-    // console.log(props.statisticsCookieOptions.cookieExpiry);
-
-    // Cookies.set(props.statisticsCookieName, e.target.checked, {
-    //   expires: 365,
-    //   path: '/'
-    // });
-
-    // create or remove cookie based on toggle if statement
-
-  }
-
-  // const toggleCookie = (e) => {
-  //   console.log('fired toggle from inside component');
-  // }
 
   const saveCookiePreference = (e) => {
-    //console.logconsole.log('save or remove cookies');
-
-    if (statisticsCookies) {
-      // set cookie
-      Cookies.set(statisticsCookieOptions.cookieName, statisticsCookies)
-    } else {
-      // remove cookie
-      Cookies.remove(statisticsCookieOptions.cookieName, statisticsCookies)
-    }
-
-    // if (baseCookie) {
-    //   // set cookie
-    //   Cookies.set('base_cookie', baseCookie)      
-    // } else {
-    //   Cookies.remove('base_cookie');
-    // }
 
     if (preferenceCookie.enabled) {
-      // Set Cookie
       Cookies.set(preferenceCookie.name, preferenceCookie.enabled);
     } else {
       Cookies.remove(preferenceCookie.name);
+    }
+
+    if (marketingCookie.enabled) {
+      Cookies.set(marketingCookie.name, marketingCookie.enabled);
+    } else {
+      Cookies.remove(marketingCookie.name);
+    }
+
+    if (statisticsCookie.enabled) {
+      Cookies.set(statisticsCookie.name, statisticsCookie.enabled);
+    } else {
+      Cookies.remove(statisticsCookie.name);
     }
 
     setDialogState(false);
@@ -130,44 +54,44 @@ const CookieDialog = (props) => {
   // Functions
   //----------
 
-  function toggleCookiePreferences(toggleOption, cookieName) {
-    //consoleconsole.log('toggle value', toggleOption);
+  // function toggleCookiePreferences(toggleOption, cookieName) {
+  //   //consoleconsole.log('toggle value', toggleOption);
 
-    if (toggleOption === false) {
+  //   if (toggleOption === false) {
 
-      // set cookie with value of 0
-      Cookies.set(cookieName, '0', {
-        expires: 365,
-        path: '/'
-      });
+  //     // set cookie with value of 0
+  //     Cookies.set(cookieName, '0', {
+  //       expires: 365,
+  //       path: '/'
+  //     });
 
-    } else if (toggleOption === true) {
+  //   } else if (toggleOption === true) {
 
-      // set cookie with value of 1
-      Cookies.set(cookieName, '1', {
-        expires: 365,
-        path: '/'
-      });
+  //     // set cookie with value of 1
+  //     Cookies.set(cookieName, '1', {
+  //       expires: 365,
+  //       path: '/'
+  //     });
 
-    }
+  //   }
 
-  }
+  // }
 
-  function setInitialCookies(cookieName) {
+  // function setInitialCookies(cookieName) {
 
-    if (!Cookies.get(cookieName)) {
-      //console.log('no cookie set. initialise and set to 1');
+  //   // if (!Cookies.get(cookieName)) {
+  //   //   //console.log('no cookie set. initialise and set to 1');
 
-      // set cookie with value of 1
-      Cookies.set(cookieName, '1', {
-        expires: 365,
-        path: '/'
-      });
+  //   //   // set cookie with value of 1
+  //   //   Cookies.set(cookieName, '1', {
+  //   //     expires: 365,
+  //   //     path: '/'
+  //   //   });
 
-    } else {
-      //console.log('cookie set dont initialise them');
-    }
-  }
+  //   // } else {
+  //   //   //console.log('cookie set dont initialise them');
+  //   // }
+  // }
 
   return (
 
@@ -176,45 +100,7 @@ const CookieDialog = (props) => {
         <div className="container">
           <h1>{props.title}</h1>
           <p>{props.message}</p>
-          <form id="cookie-form" onSubmit={savePreferences}>
-
-            <div>
-              <input type="checkbox" name="preferenceCookies" checked={preferenceCookies} onChange={togglePreferenceCookies} /><label>Preference Cookies</label>
-            </div>
-
-            <div>
-              <input type="checkbox" name="marketingCookies" checked={marketingCookies} onChange={toggleMarketingCookies} /><label>Marketing Cookies</label>
-            </div>
-
-            <input type="submit" className="button" value="Save Preferences" />
-
-          </form>
-
-          <br />
-          <br />
-          <br />
-          <br />
-
-          {props.children}
-
-          <div className="cookie-options-wrapper">
-
-            <h3 className="title">{statisticsCookieOptions.title}</h3>
-
-            <div className="cookie-option">
-              <div className="checkbox-control">
-                <label className="checkbox-container">
-                  <input type="checkbox" name="statistics" checked={statisticsCookies} onChange={toggleStatisticsCookies} id="statistics" />
-                  <span className="checkmark"></span>
-                </label>
-              </div>
-              <div className="description">
-                <p>{statisticsCookieOptions.message}</p>
-              </div>
-            </div>
-
-          </div>
-
+            {props.children}
           <button className="save-preferences" onClick={saveCookiePreference}>Save Cookie Preferences</button>
 
         </div>

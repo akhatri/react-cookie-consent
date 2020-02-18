@@ -11,10 +11,11 @@ import CookieContextProvider from './contexts/CookieContext';
 
 function App() {
 
-  const toggleStatisticsCookies = (e) => {
+  const onPreferenceToggle = (e) => {
 
     //setStatisticsCookies(e.target.checked);
-    console.log('callback if necessary');
+    console.log('callback if necessary', e);
+    console.log(e);
 
   }
 
