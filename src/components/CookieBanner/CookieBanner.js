@@ -9,31 +9,7 @@ const CookieBanner = (props) => {
 
   useEffect(() => {
 
-    // let cookieBar = document.getElementById('cookie-bar');
-    // let cookieClose = document.querySelector('.js--cookie-close');
-
     Cookies.get('necessary-cookies') ? setBannerState(false) : setBannerState(true)
-
-    // console.log(isBannerOpen);
-    // console.log(Cookies.get('necessary-cookies'));
-
-    // if (!Cookies.get('cookieBar-nhm-cookie')) {
-    //   cookieBar.classList.add('is-active');
-    // }
-    // else {
-    //   cookieBar.classList.remove('is-active');
-    // }
-
-    // cookieClose.addEventListener('click', () => {
-
-    //   Cookies.set('cookieBar-nhm-cookie', 'nhm-cookie', {
-    //     expires: 365,
-    //     path: '/'
-    //   });
-
-    //   cookieBar.classList.remove('show');
-
-    // });
 
   });
 
