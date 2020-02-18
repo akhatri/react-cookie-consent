@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from 'react';
 import { DialogContext } from '../../contexts/DialogContext';
-import Cookies from 'js-cookie'
+import Cookies from 'js-cookie';
 import './cookie-banner.scss';
 
-const CookieBanner = (props) => {
+const CookieBanner = (props: any) => {
 
   const { setDialogState, isBannerOpen, setBannerState } = useContext(DialogContext);
 
@@ -14,7 +14,7 @@ const CookieBanner = (props) => {
   });
 
   const acceptCookies = () => {
-    Cookies.set('necessary-cookies', true);
+    Cookies.set('necessary-cookies', 'true');
     setBannerState(false);
   }
 

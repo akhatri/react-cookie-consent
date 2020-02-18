@@ -5,7 +5,7 @@ import { CookieContext } from '../../contexts/CookieContext';
 import Cookies from 'js-cookie';
 import './cookie-dialog.scss';
 
-const CookieDialog = (props) => {
+const CookieDialog = (props: any) => {
 
   const { isDialogOpen, setDialogState } = useContext(DialogContext);
   const { preferenceCookie, setPreferenceCookie } = useContext(CookieContext);
@@ -27,7 +27,7 @@ const CookieDialog = (props) => {
   // Events
   //--------
 
-  const saveCookiePreference = (e) => {
+  const saveCookiePreference = (e: any) => {
 
     e.preventDefault();
 

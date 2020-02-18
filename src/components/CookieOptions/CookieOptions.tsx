@@ -1,11 +1,11 @@
 import React, { useContext } from 'react';
 import { CookieContext } from '../../contexts/CookieContext';
 
-export const PreferenceCheckbox = (props) => {
+export const PreferenceCheckbox = (props: any) => {
 
   const { preferenceCookie, setPreferenceCookie } = useContext(CookieContext);
 
-  const togglePreferenceCookie = (e) => {
+  const togglePreferenceCookie = (e: any) => {
 
     setPreferenceCookie({
       ...preferenceCookie,
@@ -39,11 +39,11 @@ export const PreferenceCheckbox = (props) => {
 
 }
 
-export const MarketingCheckbox = (props) => {
+export const MarketingCheckbox = (props: any) => {
 
   const { marketingCookie, setMarketingCookie } = useContext(CookieContext);
 
-  const toggleMarketingCookie = (e) => {
+  const toggleMarketingCookie = (e: any) => {
 
     setMarketingCookie({
       ...marketingCookie,
@@ -77,11 +77,11 @@ export const MarketingCheckbox = (props) => {
 }
 
 
-export const StatisticsCheckbox = (props) => {
+export const StatisticsCheckbox = (props: any) => {
 
   const { statisticsCookie, setStatisticsCookie } = useContext(CookieContext);
 
-  const toggleStatisticsCookie = (e) => {
+  const toggleStatisticsCookie = (e: any) => {
 
     setStatisticsCookie({
       ...statisticsCookie,

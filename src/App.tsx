@@ -6,9 +6,6 @@ import CookieDialog from './components/CookieDialog/CookieDialog';
 import { PreferenceCheckbox, MarketingCheckbox, StatisticsCheckbox } from './components/CookieOptions/CookieOptions';
 import CookieContextProvider from './contexts/CookieContext';
 
-
-
-
 function App() {
 
   const onPreferenceToggle = (e: any) => {
