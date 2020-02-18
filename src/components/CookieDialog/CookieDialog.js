@@ -29,6 +29,8 @@ const CookieDialog = (props) => {
 
   const saveCookiePreference = (e) => {
 
+    e.preventDefault();
+
     if (preferenceCookie.enabled) {
       Cookies.set(preferenceCookie.name, preferenceCookie.enabled);
     } else {
