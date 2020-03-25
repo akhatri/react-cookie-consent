@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import CookieBanner from './components/CookieBanner/CookieBanner';
-import DialogContextProvider from './contexts/DialogContext';
+// import DialogContextProvider from './contexts/CookieContext';
 import CookieDialog from './components/CookieDialog/CookieDialog';
 //import CookieOption, {FunctionalCookieOption, MarketingCookieOption} from './components/CookieOption/CookieOption';
 import { PreferenceCheckbox, MarketingCheckbox, StatisticsCheckbox } from './components/CookieOptions/CookieOptions';
@@ -28,16 +28,14 @@ function App() {
       <footer>
         <h3>Footer</h3>
       </footer>
-      <DialogContextProvider>
+      <CookieContextProvider>
         <CookieBanner />
-        <CookieContextProvider>
-          <CookieDialog>
-            <PreferenceCheckbox name="pref_mod_new" />
-            <MarketingCheckbox />
-            <StatisticsCheckbox />
-          </CookieDialog>
-        </CookieContextProvider>
-      </DialogContextProvider>
+        <CookieDialog>
+          <PreferenceCheckbox />
+          <MarketingCheckbox />
+          <StatisticsCheckbox />
+        </CookieDialog>
+      </CookieContextProvider>
     </div>
   );
 }

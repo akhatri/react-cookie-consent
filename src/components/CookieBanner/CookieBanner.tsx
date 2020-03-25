@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from 'react';
-import { DialogContext } from '../../contexts/DialogContext';
+import { CookieContext } from '../../contexts/CookieContext';
 import Cookies from 'js-cookie';
 import './cookie-banner.scss';
 
 const CookieBanner = (props: any) => {
 
-  const { setDialogState, isBannerOpen, setBannerState } = useContext(DialogContext);
+  const { setDialogState, isBannerOpen, setBannerState } = useContext(CookieContext);
 
   useEffect(() => {
 

@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { DialogContext } from '../../contexts/DialogContext';
 import { CookieContext } from '../../contexts/CookieContext';
 
 import Cookies from 'js-cookie';
@@ -7,10 +6,10 @@ import './cookie-dialog.scss';
 
 const CookieDialog = (props: any) => {
 
-  const { isDialogOpen, setDialogState } = useContext(DialogContext);
-  const { preferenceCookie, setPreferenceCookie } = useContext(CookieContext);
-  const { marketingCookie, setMarketingCookie } = useContext(CookieContext);
-  const { statisticsCookie, setStatisticsCookie } = useContext(CookieContext);
+  const { isDialogOpen, setDialogState } = useContext(CookieContext);
+  // const { preferenceCookie, setPreferenceCookie } = useContext(CookieContext);
+  // const { marketingCookie, setMarketingCookie } = useContext(CookieContext);
+  // const { statisticsCookie, setStatisticsCookie } = useContext(CookieContext);
 
   useEffect(() => {
 
@@ -24,9 +23,9 @@ const CookieDialog = (props: any) => {
 
     // Cookies.get(preferenceCookie.name) ? setPreferenceCookie({...preferenceCookie, enabled: true}) : setPreferenceCookie({...preferenceCookie, enabled: false});
 
-    Cookies.get(marketingCookie.name) ? setMarketingCookie({...marketingCookie, enabled: true}) : setMarketingCookie({...marketingCookie, enabled: false});
+    // Cookies.get(marketingCookie.name) ? setMarketingCookie({...marketingCookie, enabled: true}) : setMarketingCookie({...marketingCookie, enabled: false});
 
-    Cookies.get(statisticsCookie.name) ? setStatisticsCookie({...statisticsCookie, enabled: true}) : setStatisticsCookie({...statisticsCookie, enabled: false});
+    // Cookies.get(statisticsCookie.name) ? setStatisticsCookie({...statisticsCookie, enabled: true}) : setStatisticsCookie({...statisticsCookie, enabled: false});
 
   }, [])
 
@@ -35,7 +34,7 @@ const CookieDialog = (props: any) => {
   // Events
   //--------
 
-  const saveCookiePreference = (e: any) => {
+  const closeDialog = (e: any) => {
 
     e.preventDefault();
 
@@ -45,21 +44,22 @@ const CookieDialog = (props: any) => {
     //   Cookies.remove(preferenceCookie.name);
     // }
 
-    if (marketingCookie.enabled) {
-      Cookies.set(marketingCookie.name, marketingCookie.enabled);
-    } else {
-      Cookies.remove(marketingCookie.name);
-    }
+    // if (marketingCookie.enabled) {
+    //   Cookies.set(marketingCookie.name, marketingCookie.enabled);
+    // } else {
+    //   Cookies.remove(marketingCookie.name);
+    // }
 
-    if (statisticsCookie.enabled) {
-      Cookies.set(statisticsCookie.name, statisticsCookie.enabled);
-    } else {
-      Cookies.remove(statisticsCookie.name);
-    }
+    // if (statisticsCookie.enabled) {
+    //   Cookies.set(statisticsCookie.name, statisticsCookie.enabled);
+    // } else {
+    //   Cookies.remove(statisticsCookie.name);
+    // }
 
     setDialogState(false);
-
   }
+
+
 
   // Functions
   //----------
@@ -110,8 +110,12 @@ const CookieDialog = (props: any) => {
         <div className="container">
           <h1>{props.title}</h1>
           <p>{props.message}</p>
-            {props.children}
-          <button className="save-preferences" onClick={saveCookiePreference}>Save Cookie Preferences</button>
+          {props.children}
+
+          <div className="button-actions">
+            <button onClick={closeDialog}>{props.confirmText}</button>
+            <button onClick={closeDialog}>{props.cancelText}</button>
+          </div>
 
         </div>
       </div>
@@ -124,7 +128,9 @@ const CookieDialog = (props: any) => {
 CookieDialog.defaultProps = {
   title: 'Your privacy options',
   message: 'Please review and manage your privacy settings below',
-  cssClass: 'css'
+  cssClass: 'css',
+  confirmText: 'Save Preferences',
+  cancelText: 'Cancel'
 }
 
 
