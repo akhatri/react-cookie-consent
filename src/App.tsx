@@ -32,7 +32,7 @@ function App() {
         <CookieBanner />
         <CookieContextProvider>
           <CookieDialog>
-            <PreferenceCheckbox />
+            <PreferenceCheckbox name="pref_mod_new" />
             <MarketingCheckbox />
             <StatisticsCheckbox />
           </CookieDialog>

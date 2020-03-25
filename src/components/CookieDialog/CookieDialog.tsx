@@ -14,7 +14,15 @@ const CookieDialog = (props: any) => {
 
   useEffect(() => {
 
-    Cookies.get(preferenceCookie.name) ? setPreferenceCookie({...preferenceCookie, enabled: true}) : setPreferenceCookie({...preferenceCookie, enabled: false});
+    // Cookies.get(preferenceCookie.name) ? setPreferenceCookie({...preferenceCookie, enabled: true}) : setPreferenceCookie({...preferenceCookie, enabled: false});
+
+    // console.log(Cookies.get(preferenceCookie))
+    // console.log(Cookies.get(marketingCookie.name))
+
+    // console.log(Cookies.get('pref_cookie'));
+    // console.log(Cookies.get(preferenceCookie.name));
+
+    // Cookies.get(preferenceCookie.name) ? setPreferenceCookie({...preferenceCookie, enabled: true}) : setPreferenceCookie({...preferenceCookie, enabled: false});
 
     Cookies.get(marketingCookie.name) ? setMarketingCookie({...marketingCookie, enabled: true}) : setMarketingCookie({...marketingCookie, enabled: false});
 
@@ -31,11 +39,11 @@ const CookieDialog = (props: any) => {
 
     e.preventDefault();
 
-    if (preferenceCookie.enabled) {
-      Cookies.set(preferenceCookie.name, preferenceCookie.enabled);
-    } else {
-      Cookies.remove(preferenceCookie.name);
-    }
+    // if (preferenceCookie.enabled) {
+    //   Cookies.set(preferenceCookie.name, preferenceCookie.enabled);
+    // } else {
+    //   Cookies.remove(preferenceCookie.name);
+    // }
 
     if (marketingCookie.enabled) {
       Cookies.set(marketingCookie.name, marketingCookie.enabled);

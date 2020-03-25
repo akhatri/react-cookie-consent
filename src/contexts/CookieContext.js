@@ -4,11 +4,11 @@ export const CookieContext = createContext();
 
 const CookieContextProvider = (props) => {
 
-  const [preferenceCookie, setPreferenceCookie] = useState({
-    name: 'preference_cookie_consent',
-    expiry: 40,
-    enabled: true
-  });
+  // const [preferenceCookie, setPreferenceCookie] = useState({
+  //   name: 'preference_cookie_consent',
+  //   expiry: 365,
+  //   enabled: true
+  // });
 
   const [marketingCookie, setMarketingCookie] = useState({
     name: 'marketing_cookie_consent',
@@ -24,7 +24,7 @@ const CookieContextProvider = (props) => {
   });
 
   return (
-    <CookieContext.Provider value={{ preferenceCookie, setPreferenceCookie, marketingCookie, setMarketingCookie, statisticsCookie, setStatisticsCookie }}>
+    <CookieContext.Provider value={{ marketingCookie, setMarketingCookie, statisticsCookie, setStatisticsCookie }}>
       {props.children}
     </CookieContext.Provider>
   )
