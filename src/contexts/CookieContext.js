@@ -7,10 +7,6 @@ const CookieContextProvider = (props) => {
   const [isDialogOpen, setDialogState] = useState(false);
   const [isBannerOpen, setBannerState] = useState(false);
 
-  // const [preferenceCookies, setPreferenceCookies] = useState(true);
-  // const [marketingCookies, setMarketingCookies] = useState(true);
-
-
   return (
     <CookieContext.Provider value={{isDialogOpen, setDialogState, isBannerOpen, setBannerState}}>
       {props.children}
